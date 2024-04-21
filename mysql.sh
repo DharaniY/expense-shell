@@ -39,5 +39,6 @@ systemctl start mysqld &>>$LOG_FILE
 VALIDATION $? "Starting mysql server"
 
 # changing default password for mysql server
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
-VALIDATION $? "setting mysql server root password"
+# mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+# VALIDATION $? "setting mysql server root password"
+# Below code is useful to handle ideompotent nature
