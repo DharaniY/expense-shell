@@ -67,7 +67,7 @@ VALIDATION $? "Enable Backend"
 dnf install mysql -y &>>$LOG_FILE
 VALIDATION $? "Installing sql client"
 
-mysql -h db.sivasatya.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+mysql -h db.sivasatya.online -uroot -pExpenseApp@1  /app/schema/backend.sql &>>$LOG_FILE
 VALIDATION $? "schema Loading"
 
 systemctl restart backend &>>$LOG_FILE
