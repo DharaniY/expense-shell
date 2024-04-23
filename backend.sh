@@ -9,6 +9,8 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+echo "Please enter DB password:"
+read -s mysql_root_password
 
 if [ "$USERID" -ne 0 ]
 then
@@ -67,7 +69,7 @@ VALIDATION $? "Enable Backend"
 dnf install mysql -y &>>$LOG_FILE
 VALIDATION $? "Installing sql client"
 
-mysql -h db.sivasatya.online -uroot -pExpenseApp@1  /app/schema/backend.sql &>>$LOG_FILE
+mysql -h db.sivasatya.online -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOG_FILE
 VALIDATION $? "schema Loading"
 
 systemctl restart backend &>>$LOG_FILE
