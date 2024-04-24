@@ -46,7 +46,7 @@ VALIDATION $? "Unzipping files"
 
 #check your repo and path
 cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOG_FILE
-VALIDATE $? "Copied expense conf"
+VALIDATION $? "Copied expense conf"
 
 systemctl restart nginx &>>$LOG_FILE
-VALIDATE $? "Restarting nginx"
+VALIDATION $? "Restarting nginx"
