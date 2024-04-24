@@ -23,30 +23,30 @@ else
     echo "Your super user"
 fi        
 
-dnf install nginx -y &>>LOG_FILE
+dnf install nginx -y &>>$LOG_FILE
 VALIDATION $? "mginx installtion"
 
-systemctl enable nginx &>>LOG_FILE
+systemctl enable nginx &>>$LOG_FILE
 VALIDATION $? "Enable nginx"
 
-systemctl start nginx &>>LOG_FILE
+systemctl start nginx &>>$LOG_FILE
 VALIDATION $? "Staring niginx"
 
-rm -rf /usr/share/nginx/html/* &>>LOG_FILE
+rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
 VALIDATION $? "removing html files"
 
-curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>LOG_FILE
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
 VALIDATION $? "dowinloading package"
 
-cd /usr/share/nginx/html &>>LOG_FILE
+cd /usr/share/nginx/html &>>$LOG_FILE
 VALIDATION $? "change directory"
 
-unzip /tmp/frontend.zip &>>LOG_FILE
+unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATION $? "Unzipping files"
 
 #check your repo and path
-cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOGFILE
+cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOG_FILE
 VALIDATE $? "Copied expense conf"
 
-systemctl restart nginx &>>$LOGFILE
+systemctl restart nginx &>>$LOG_FILE
 VALIDATE $? "Restarting nginx"
