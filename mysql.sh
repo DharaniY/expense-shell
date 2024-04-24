@@ -7,7 +7,10 @@ LOG_FILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
-N="\e[0m"   
+N="\e[0m"  
+
+echo "Please enter DB password:"
+read -s mysql_root_password
 
 if [ "$USERID" -ne 0 ]
 then
@@ -38,7 +41,12 @@ VALIDATION $? "enabling mysql server"
 systemctl start mysqld &>>$LOG_FILE
 VALIDATION $? "Starting mysql server"
 
-# changing default password for mysql server
-# mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
-# VALIDATION $? "setting mysql server root password"
-# Below code is useful to handle ideompotent nature
+#Below code will be useful for idempotent nature
+mysql -h db.sivasatya.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
+if [ $? -ne 0 ]
+then
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
+    VALIDATE $? "MySQL Root password Setup"
+else
+    echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
+fi
