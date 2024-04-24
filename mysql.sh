@@ -42,11 +42,11 @@ systemctl start mysqld &>>$LOG_FILE
 VALIDATION $? "Starting mysql server"
 
 #Below code will be useful for idempotent nature
-mysql -h db.sivasatya.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
+mysql -h db.sivasatya.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
-    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
-    VALIDATE $? "MySQL Root password Setup"
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOG_FILE
+    VALIDATION $? "MySQL Root password Setup"
 else
     echo -e "MySQL Root password is already setup...$Y SKIPPING $N"
 fi
